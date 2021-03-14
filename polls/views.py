@@ -45,3 +45,22 @@ def vote(request,question_id):
         selected_choice.votes += 1
         selected_choice.save()
         return HttpResponseRedirect(reverse('polls:results',args=(question.id,)))
+
+
+class SerializedList(generic.DetailView):
+    def get(self,request,*args,**kwargs):
+        qs = Question.objects.all()
+        data = serializers.serialize('json', qs,)
+
+        return HttpResponse(data, content_type='application/json')
+
+
+class SerializedDetailView(generic.DetailView):
+      def get(self,request,*args,**kwargs):
+        id_ = kwargs['pk']
+        try:    
+            q =  get_object_or_404(Question,pk=id_)
+            context = q.serialize()
+            return HttpResponse( context, content_type='application/json')
+        except Question.DoesNotExist:
+            return Http404('Something aint right')
