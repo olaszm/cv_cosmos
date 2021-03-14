@@ -64,3 +64,8 @@ class SerializedDetailView(generic.DetailView):
             return HttpResponse( context, content_type='application/json')
         except Question.DoesNotExist:
             return Http404('Something aint right')
+
+
+
+def costum_404(request,exception):
+    return render(request, 'polls/costum_404.html', {})            

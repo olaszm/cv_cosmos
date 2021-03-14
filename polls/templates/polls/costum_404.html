@@ -1,0 +1,12 @@
+{%extends "polls/base.html" %}
+
+
+{% block content %}
+
+<main>
+    <h2>Oh no something went wrong</h2>
+    <a href="{% url 'polls:index' %}" class="btn btn-primary">Take me back to polls</a>
+</main>
+
+
+{% endblock %}
