@@ -36,7 +36,7 @@
     {{ question.total_votes|json_script:'totalVotes' }}
 
 {% load static %}
-<script type="application/javascript" src="{% static 'polls/voteProgress.js' %}"></script>
+<script type="application/javascript" src="{% static '/js/voteProgress.js' %}"></script>
 </body>
 
 {% endblock %}
