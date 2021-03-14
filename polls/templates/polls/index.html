@@ -1,0 +1,15 @@
+{%extends "polls/base.html" %}
+
+
+{% block content %}
+
+<h1>Poll list</h1>
+</button>
+
+<ul class="list-group">
+    {% for item in latest_list %}
+    <li class="list-group-item"><a href="{{item.id}}">{{item}}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
