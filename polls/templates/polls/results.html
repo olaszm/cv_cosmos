@@ -1,0 +1,42 @@
+{%extends "polls/base.html" %}
+
+
+{% block content %}
+
+
+<div class="card">
+    <div class="card-header text-dark d-flex align-items-end">
+        <h1>{{ question.question_text }}</h1>
+        <p class="h4 mx-2">Total votes: {{question.total_votes}}</p>
+    </div>
+
+    <div class="card-body">
+        <ul class="list-group border-0">
+            {% for choice in question.choice_set.all %}
+            <li class="list-group-item text-dark">
+                {{ choice.choice_text }} -- <span class="percentageEl"></span>
+
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" id='{{forloop.counter0}}' style="width: 0%"
+                        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    <div class="card-footer">
+        <a class="btn" href="{% url 'polls:details' question.id %}">Vote again?</a>
+        <a class="btn" href="{% url 'polls:index' %}">Poll list</a>
+    </div>
+</div>
+
+    {{ choices|json_script:'choices' }}
+    {{ question.total_votes|json_script:'totalVotes' }}
+
+{% load static %}
+<script type="application/javascript" src="{% static 'polls/voteProgress.js' %}"></script>
+</body>
+
+{% endblock %}

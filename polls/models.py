@@ -7,6 +7,18 @@ class Question(models.Model):
     question_text= models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
 
+    def total_votes(self):
+        choices = Choice.objects.all().filter(question=self.pk).values('votes')
+        total = 0
+        for item in choices:
+            total += item['votes']
+        return total
+    
+    def get_choices(self):
+        choices = Choice.objects.all().filter(question=self.pk)
+        return choices
+
+
     def __str__(self):
         return self.question_text
 
